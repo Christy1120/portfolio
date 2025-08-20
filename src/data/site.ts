@@ -64,6 +64,7 @@ export const SKILL_GROUPS = [
 
 export const PROJECTS = [
   {
+    slug: "manufacturing-dashboard",
     title: "製造資料可視化儀表板（MVP）",
     desc: "用 Streamlit 打造可互動的資料儀表板，支援即時篩選與瓶頸追蹤。",
     tags: ["Streamlit","Pandas","Plotly"],
@@ -71,6 +72,7 @@ export const PROJECTS = [
     preview: "Demo Image / GIF"
   },
   {
+    slug: "decentralized-comic-platform",
     title: "去中心化漫畫平台",
     desc: "以區塊鏈驗證內容上架流程與授權，完成前後端原型。",
     tags: ["Solidity","web3.js","Nginx"],
@@ -78,6 +80,7 @@ export const PROJECTS = [
     preview: "DApp Prototype"
   },
   {
+    slug: "mite-detection-research",
     title: "智慧農業：葉蟎偵測研究",
     desc: "以深度學習影像辨識建立病害偵測流程，提交研究成果。",
     tags: ["TensorFlow","OpenCV","研究方法"],
