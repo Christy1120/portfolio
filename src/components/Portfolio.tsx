@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PROJECTS } from "../data/site";
 
 export default function Portfolio() {
-  const location = useLocation();
-
   return (
     <section id="portfolio" className="section">
       <div className="container">
@@ -20,7 +18,8 @@ export default function Portfolio() {
             >
               <Link
                 to={`/project/${p.slug}`}
-                state={{ background: location }}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="card p-5 hover:shadow-lg transition-shadow block"
               >
                 <div className="aspect-[16/10] w-full rounded-xl bg-gradient-to-br from-sky-100 to-amber-100 border flex items-center justify-center text-slate-700">

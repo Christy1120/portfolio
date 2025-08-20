@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import ExperienceDetail from "./pages/ExperienceDetail";            // 直接開頁
 import ExperienceDetailOverlay from "./pages/ExperienceDetailOverlay"; // 覆蓋層
 import ProjectDetail from "./pages/ProjectDetail";
-import ProjectDetailOverlay from "./pages/ProjectDetailOverlay";
 
 const pageVariants = {
   initial: { opacity: 0, y: 12, filter: "blur(4px)" },
@@ -42,7 +41,6 @@ export default function App() {
         {background && (
           <Routes>
             <Route path="/experience/:slug" element={<ExperienceDetailOverlay />} />
-            <Route path="/project/:slug" element={<ProjectDetailOverlay />} />
           </Routes>
         )}
       </AnimatePresence>
