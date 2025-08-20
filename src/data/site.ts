@@ -65,7 +65,7 @@ export const SKILL_GROUPS = [
 export const PROJECTS = [
   {
     slug: "manufacturing-dashboard",
-    title: "製造資料可視化儀表板（MVP）",
+    title: "製造資料可視化儀表板",
     desc: "用 Streamlit 打造可互動的資料儀表板，支援即時篩選與瓶頸追蹤。",
     tags: ["Streamlit","Pandas","Plotly"],
     href: "#",
