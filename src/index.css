@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { scroll-behavior: smooth; }
+.section { @apply py-20; }
+.container { @apply max-w-6xl mx-auto px-6; }
+.h1 { @apply font-heading text-3xl sm:text-5xl font-extrabold tracking-tight; }
+.h2 { @apply font-heading text-2xl sm:text-3xl font-bold tracking-tight; }
+.h3 { @apply font-heading text-xl sm:text-2xl font-semibold; }
+.badge { @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium bg-white/80 backdrop-blur border-slate-200; }
+.card { @apply rounded-2xl border border-slate-200 bg-white shadow-soft; }
+.lead { @apply text-lg text-slate-600; }
+.link { @apply underline decoration-2 underline-offset-4 hover:decoration-4; }
