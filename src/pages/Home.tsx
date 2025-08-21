@@ -29,7 +29,7 @@ export default function Home() {
       </section>
 
       {/* 作品集（提供 #portfolio 給返回按鈕與 Nav 使用） */}
-      <section id="portfolio" className="scroll-mt-60">
+      <section id="portfolio" className="scroll-mt-6">
         {typeof Portfolio === "function" && <Portfolio />}
       </section>
 

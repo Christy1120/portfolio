@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { useProjectDetail } from "../hooks/useProjectDetail";
+import Nav from "../components/Nav";
 
 import {
   ThemeCSS,
@@ -23,7 +24,7 @@ export default function ProjectDetail() {
     <div className="project-detail-theme min-h-screen relative bg-white">
       <ThemeCSS />
       <EnhancedBackgroundFX />
-      <EnhancedNavigationBar />
+      {typeof Nav === "function" && <Nav />}
 
       <div className="relative z-10 container mx-auto px-6 py-12">
         <div className="max-w-7xl mx-auto">
