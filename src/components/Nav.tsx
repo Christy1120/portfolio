@@ -7,11 +7,11 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const items = [
-    { id: "home", label: "首頁" },
-    { id: "experience", label: "經歷" },
-    { id: "skills", label: "技能" },
-    { id: "portfolio", label: "作品" },
-    { id: "contact", label: "聯繫" },
+    { id: "home", label: "Home" },
+    { id: "experience", label: "Experience" },
+    { id: "skills", label: "Skills" },
+    { id: "portfolio", label: "Portfolio" },
+    { id: "contact", label: "Contact" },
   ];
 
   // 是否在首頁
@@ -54,9 +54,6 @@ export default function Nav() {
             )
           )}
 
-          <a href={SITE.resumeUrl} target="_blank" className="badge hover:shadow-soft" rel="noreferrer">
-            <Download className="w-4 h-4" /> 下載履歷
-          </a>
         </nav>
 
         <button
@@ -93,9 +90,7 @@ export default function Nav() {
               )
             )}
 
-            <a href={SITE.resumeUrl} target="_blank" className="badge w-max" rel="noreferrer">
-              <Download className="w-4 h-4" /> 下載履歷
-            </a>
+           
           </div>
         </div>
       )}

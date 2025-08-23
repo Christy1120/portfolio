@@ -16,13 +16,13 @@ export default function ExperienceTimeline() {
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.h2
-          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent"
+          className="text-4xl font-bold text-left mb-16 bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          經歷時間軸
+          Experience
         </motion.h2>
 
         <div className="relative mt-10">

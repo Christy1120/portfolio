@@ -9,7 +9,7 @@ export default function FloatingScrollTop() {
   return createPortal(
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      style={{ background: "linear-gradient(135deg, #fbd786 0%, #f7797d 100%)" }}
+      style={{ background: "linear-gradient(135deg,rgb(139, 132, 117) 0%,rgb(62, 59, 59) 100%)" }}
       className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 w-14 h-14 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 pd-interactive z-[100]"
       aria-label="返回頂部"
     >

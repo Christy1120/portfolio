@@ -11,13 +11,13 @@ export type TimelineItem = {
 
 export const TIMELINE: ReadonlyArray<TimelineItem> = [
   {
-    slug: "senior-frontend",
-    title: "高級前端工程師",
-    company: "科技公司 A",
-    period: "2023 - 現在",
+    slug: "Data-Analysis",
+    title: "Data Analysis Intern",
+    company: "PowerArena",
+    period: "Jul 2024 – Jul 2025",
     summary:
-      "負責前端架構設計與開發，使用 React、TypeScript 建構大型應用程式，優化用戶體驗與性能。",
-    tags: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+      "Conducted data analysis, visualization, and LLM-driven prototyping to improve  workflows and support cross-functional decision-making.",
+    tags: ["Data Analysis", "Python (pandas, Streamlit)", "AI Agent Prototyping", "Cross-functional Collaboration"],
   },
   {
     slug: "fullstack-engineer",
