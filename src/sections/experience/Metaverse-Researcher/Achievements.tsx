@@ -1,23 +1,30 @@
 import React from "react";
-import { SectionTitle, AltSection, AchievementCard } from "@/components/ui";
+import { SectionTitle, AltSection } from "@/components/ui";
+import AchievementCard from "@/components/ui/AchievementCard";
+import { Lightbulb, BookOpen, Handshake } from "lucide-react";
 
 export default function Achievements() {
   return (
     <AltSection bg>
       <SectionTitle title="Key Achievements" />
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
+      <div className="mt-12 grid gap-6 md:grid-cols-3" role="list">
         <AchievementCard
-          icon="💡"
+          icon={<Lightbulb />}
           title="Academic Recognition"
-          desc="Published and presented findings at the International Conference on Information Management (ICIM)."
+          desc={
+              <>
+                Published and presented findings at the{" "}
+                <strong>International Conference on Information Management (ICIM)</strong>.
+              </>
+            }
         />
         <AchievementCard
-          icon="📖"
+          icon={<BookOpen />}
           title="Research Output"
           desc="Consolidated findings into a structured paper examining opportunities, risks, and transitional strategies for emerging technologies in the arts."
         />
         <AchievementCard
-          icon="🤝"
+          icon={<Handshake />}
           title="Industry Relevance"
           desc="Brought together academic frameworks and real-world insights from the art-tech startup case study."
         />
