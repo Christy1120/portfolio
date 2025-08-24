@@ -2,13 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { scroll-behavior: smooth; }
-.section { @apply py-20; }
-.container { @apply max-w-6xl mx-auto px-6; }
-.h1 { @apply font-heading text-3xl sm:text-5xl font-extrabold tracking-tight; }
-.h2 { @apply font-heading text-2xl sm:text-3xl font-bold tracking-tight; }
-.h3 { @apply font-heading text-xl sm:text-2xl font-semibold; }
-.badge { @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium bg-white/80 backdrop-blur border-slate-200; }
-.card { @apply rounded-2xl border border-slate-200 bg-white shadow-soft; }
-.lead { @apply text-lg text-slate-600; }
-.link { @apply underline decoration-2 underline-offset-4 hover:decoration-4; }
+/* ===== Base tokens ===== */
+:root {
+  --brand: #f7c42a;            /* 你的主色 */
+  scroll-behavior: smooth;
+}
+
+/* ===== Components (可複用樣式) ===== */
+@layer components {
+  .section { @apply py-20; }
+  .container { @apply max-w-6xl mx-auto px-6; }
+
+  .h1 { @apply font-heading text-3xl sm:text-5xl font-extrabold tracking-tight; }
+  .h2 { @apply font-heading text-2xl sm:text-3xl font-bold tracking-tight; }
+  .h3 { @apply font-heading text-xl sm:text-2xl font-semibold; }
+
+  .badge {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium
+           bg-white/80 backdrop-blur border-slate-200;
+  }
+
+  .card { @apply rounded-2xl border border-slate-200 bg-white shadow-soft; } /* 若無自定 shadow-soft，改 shadow-lg */
+  .lead { @apply text-lg text-slate-600; }
+  .link { @apply underline decoration-2 underline-offset-4 hover:decoration-4; }
+
+  /* 品牌色輔助 class（Tailwind 無自定 color 時可用） */
+  .text-brand { color: var(--brand); }
+  .bg-brand { background-color: var(--brand); }
+  .ring-brand { --tw-ring-color: var(--brand); }
+}
+
+/* ===== Utilities（細緻工具類）===== */
+@layer utilities {
+  /* 文字底色螢光帶（重點：父層 z-index:0，偽元素 z-index:-1） */
+  .marker-amber {
+    @apply relative inline-block font-bold text-slate-900 px-0.5;
+    z-index: 0; /* 建立 stacking context，讓 ::after 不會被整個區塊背景吃掉 */
+  }
+  .marker-amber::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0.08em;            /* 與字底的距離 */
+    height: 0.45em;            /* 螢光帶厚度 */
+    background: var(--brand);  /* 用你的主色 */
+    border-radius: 2px;
+    z-index: -1;               /* 在文字下方 */
+  }
+
+  /* 輕薄版（可選） */
+  .marker-amber-slim::after { height: 0.35em; }
+
+  /* 無偽元素版本（用背景漸層）——遇到 z-index/overflow 問題時可改用 */
+  .marker-amber-bg {
+    background-image: linear-gradient(transparent 62%, var(--brand) 0);
+    background-size: 100% 0.5em;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+  }
+}
+@layer utilities {
+.h2-stripe {
+position: relative;
+padding-left: 0.9rem; /* 與文字的距離 */
+display: inline-block; /* 讓高度依內容撐開 */
+line-height: 1.15;
+}
+.h2-stripe::before {
+content: "";
+position: absolute; left: 0; top: 0.1em; bottom: 0.1em;
+width: 6px; background: var(--brand); border-radius: 9999px;
+box-shadow: 0 0 0 1px rgba(0,0,0,.02) inset;
+}
+}
