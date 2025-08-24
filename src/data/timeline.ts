@@ -19,15 +19,7 @@ export const TIMELINE: ReadonlyArray<TimelineItem> = [
       "Conducted data analysis, visualization, and LLM-driven prototyping to improve  workflows and support cross-functional decision-making.",
     tags: ["Data Analysis", "Python (pandas, Streamlit)", "AI Agent Prototyping", "Cross-functional Collaboration"],
   },
-  {
-    slug: "fullstack-engineer",
-    title: "全端工程師",
-    company: "新創公司 B",
-    period: "2021 - 2023",
-    summary:
-      "從零開始建構完整的 Web 應用程式，包含前後端開發、資料庫設計與 API 開發。",
-    tags: ["Vue.js", "Node.js", "MongoDB", "Express"],
-  },
+  
   {
     slug: "frontend-engineer",
     title: "前端工程師",
@@ -36,6 +28,15 @@ export const TIMELINE: ReadonlyArray<TimelineItem> = [
     summary:
       "開發響應式網站與互動式 UI，與設計師密切合作打造優質的用戶介面。",
     tags: ["JavaScript", "SCSS", "Webpack", "jQuery"],
+  },
+  {
+    slug: "Metaverse-Researcher",
+    title: "NSTC Project Researcher",
+    company: "Taipei University of Business – National Science & Technology Council (NSTC) Sponsored Project",
+    period: "Jul 2022 – Mar 2023  ",
+    summary:
+      "Led a government-funded research project exploring how emerging technologies like the metaverse reshape the arts industry, using market research frameworks and executive interviews to surface adoption challenges and strategies, with findings published at ICIM.",
+    tags: ["Market Research", "Industry Expert Interview", "Case Study Research", "Business Model Analysis"],
   },
   {
     slug: "frontend-intern",
