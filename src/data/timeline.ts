@@ -21,13 +21,13 @@ export const TIMELINE: ReadonlyArray<TimelineItem> = [
   },
   
   {
-    slug: "frontend-engineer",
-    title: "前端工程師",
-    company: "數位代理商 C",
-    period: "2019 - 2021",
+    slug: " Student-Research",
+    title: "NSTC Student Research Project",
+    company: "Taipei University of Business – National Science & Technology Council (NSTC) Sponsored Project",
+    period: "Jul 2024 – Feb 2025",
     summary:
-      "開發響應式網站與互動式 UI，與設計師密切合作打造優質的用戶介面。",
-    tags: ["JavaScript", "SCSS", "Webpack", "jQuery"],
+      "Defined the project objective as using deep learning techniques to detect spider mite damage on rose leaves, with the goal of showing how modern AI can help solve real problems in agriculture.",
+    tags: ["Problem Definition", "DeepLearning", "ComputerVision"],
   },
   {
     slug: "Metaverse-Researcher",
@@ -37,14 +37,5 @@ export const TIMELINE: ReadonlyArray<TimelineItem> = [
     summary:
       "Led a government-funded research project exploring how emerging technologies like the metaverse reshape the arts industry, using market research frameworks and executive interviews to surface adoption challenges and strategies, with findings published at ICIM.",
     tags: ["Market Research", "Industry Expert Interview", "Case Study Research", "Business Model Analysis"],
-  },
-  {
-    slug: "frontend-intern",
-    title: "實習前端工程師",
-    company: "軟體公司 D",
-    period: "2018 - 2019",
-    summary:
-      "學習前端開發基礎，參與團隊專案開發，熟悉版本控制與團隊協作流程。",
-    tags: ["HTML", "CSS", "Git", "Bootstrap"],
   },
 ];

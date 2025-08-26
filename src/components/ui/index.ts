@@ -1,4 +1,4 @@
-export { default as VerticalTimeline } from "./molecules/VerticalTimeline";
+export { default as VerticalTimeline } from "../../sections/experience/Student-Research/VerticalTimeline";
 
 export * from "./common/types";
 export * from "./common/animations";

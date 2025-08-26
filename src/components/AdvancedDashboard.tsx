@@ -266,7 +266,7 @@ export default function AdvancedDashboard() {
                     </div>
                   </div>
                   <div className="content-body">
-                    <p><strong>Core Issue:</strong> Stakeholders were unsure whether a quick proof-of-concept would be feasible and helpful for their data analysis needs.</p>
+                    <p><strong>Core Issue:</strong> The client needed a new production indicator but manager was uncertain whether it would be impactful or technically feasible.</p>
                     <p>This uncertainty created bottlenecks in decision-making and resource allocation. The team needed a way to quickly validate concepts and demonstrate value before committing to full development.</p>
                     <div className="stats-grid">
                       <div className="stat-card"><div className="stat-number">72%</div><div className="stat-label">Uncertainty Rate</div></div>

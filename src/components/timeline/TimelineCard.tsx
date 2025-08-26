@@ -89,7 +89,7 @@ export default function TimelineCard({
 
       <div className="mt-6 flex justify-end">
         <span className="inline-flex items-center gap-2 text-sm font-semibold text-sky-700/90">
-          {isExternal ? "前往連結" : "閱讀詳情"}
+          {isExternal ? "前往連結" : "Read More"}
           <svg
             className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
             viewBox="0 0 24 24"

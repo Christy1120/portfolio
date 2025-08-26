@@ -5,18 +5,20 @@ import { Lightbulb, BookOpen, Handshake } from "lucide-react";
 
 export default function Achievements() {
   return (
-    <AltSection bg>
+    <AltSection bg className="pb-4 md:pb-6"> {/* 覆蓋底部 padding */}
       <SectionTitle title="Key Achievements" />
-      <div className="mt-12 grid gap-6 md:grid-cols-3" role="list">
+      <div className="mt-8 grid gap-6 md:grid-cols-3" role="list">
         <AchievementCard
           icon={<Lightbulb />}
-          title=" International Conference Presentation"
+          title="International Conference Presentation"
           desc={
-              <>
-                Published and presented findings at the{" "}
-                <strong>International Conference on Information Management (ICIM)</strong>.
-              </>
-            }
+            <>
+              Published and presented findings at the{" "}
+              <strong>
+                International Conference on Information Management (ICIM)
+              </strong>.
+            </>
+          }
         />
         <AchievementCard
           icon={<BookOpen />}

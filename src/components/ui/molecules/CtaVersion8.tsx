@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { BookOpen, ExternalLink, FileText } from "lucide-react";
 
-export default function CtaVersion8({
+export default function MinimalCta({
   abstractUrl = "#",
   reportUrl = "#",
 }: {
@@ -13,99 +13,94 @@ export default function CtaVersion8({
     <div className="py-16 bg-white">
       <div className="mx-auto max-w-3xl px-4">
         <motion.div
-          initial={{ opacity: 0, rotateX: 45, z: -200 }}
-          whileInView={{ opacity: 1, rotateX: 0, z: 0 }}
+          initial={{ opacity: 0, y: 50, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, type: "spring" }}
-          style={{ perspective: "1000px" }}
-          className="relative"
+          transition={{ duration: 0.8, type: "spring", stiffness: 70 }}
         >
-          <div className="relative overflow-hidden rounded-2xl bg-white p-6">
-            {/* Icon block ── 限定 3D，避免整塊內容建立複雜 stacking */}
-            <div
-              className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-xl shadow-md"
-              style={{
-                transformStyle: "preserve-3d",
-                backgroundImage:
-                  "linear-gradient(135deg, #FFE5B4, #FFDAB9, #FFF5E1)",
-              }}
-            >
-              {/* 旋轉圖示（裝飾） */}
+          {/* 主容器：無邊框、無玻璃、無陰影 */}
+          <div className="relative rounded-3xl p-8 bg-white">
+            {/* Icon 區：保留旋轉動畫，移除邊框/玻璃/陰影 */}
+            <div className="relative mx-auto mb-8 flex h-24 w-24 items-center justify-center" style={{ background: "linear-gradient(90deg, rgba(253,230,138,0.35), rgba(254,215,170,0.35))" }} >
               <motion.div
                 animate={{ rotate: [0, 360] }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                style={{ transform: "translateZ(10px)" }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="relative"
+                
               >
-                <BookOpen className="h-10 w-10 text-gray-700" />
+                <BookOpen className="h-12 w-12 text-orange-700" />
               </motion.div>
 
-              {/* 光暈（裝飾） */}
+              {/* 柔和脈動光暈（純裝飾，不擋點擊） */}
               <motion.div
-                className="pointer-events-none absolute inset-0 rounded-xl bg-amber-400/30"
-                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute inset-0 rounded-2xl"
+                animate={{ scale: [1, 1.18, 1], opacity: [0.12, 0.22, 0.12] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(251, 190, 36, 0.88), rgba(253, 230, 138, 0.94))",
+                  pointerEvents: "none",
+                }}
               />
             </div>
 
-            {/* Title ── 保持不可點擊，且不阻擋底下元素 */}
+            {/* 標題：保留進場動畫 */}
             <motion.h2
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 24, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4 text-center text-3xl font-bold text-gray-800 md:text-4xl lg:text-5xl pointer-events-none select-none"
+              className="mb-8 text-center text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl select-none"
             >
               See More Research Content
             </motion.h2>
 
-            {/* Buttons ── 提升層級與可點性 */}
+            {/* 按鈕群：保留 hover/press 動畫，移除邊框與玻璃感 */}
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 24, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="relative z-10 flex flex-col gap-4 sm:flex-row sm:justify-center"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex flex-col gap-4 sm:flex-row sm:justify-center"
             >
-              <a
+              <motion.a
                 href={abstractUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 role="button"
                 aria-label="Read the abstract"
-                className="relative z-10 rounded-xl px-8 py-4 font-semibold text-amber-900 shadow-md transition hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/60 pointer-events-auto"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, #FFE5B4, #FFDAB9, #FFF5E1)",
-                }}
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative rounded-2xl px-8 py-4 font-semibold text-orange-800 bg-white"
               >
-                <div className="flex items-center justify-center gap-2">
-                  <ExternalLink className="h-5 w-5" />
+                <div className="flex items-center justify-center gap-3">
+                  <ExternalLink className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
                   Read the Abstract
                 </div>
-              </a>
+                {/* 裝飾層：不擋點擊 */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                     style={{ background: "linear-gradient(90deg, rgba(253,230,138,0.35), rgba(254,215,170,0.35))" }} />
+              </motion.a>
 
-              <a
+              <motion.a
                 href={reportUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 role="button"
                 aria-label="Read the full paper"
-                className="relative z-10 rounded-xl px-8 py-4 font-semibold text-amber-900 shadow-md transition hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/60 pointer-events-auto"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, #FFE5B4, #FFDAB9, #FFF5E1)",
-                }}
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative rounded-2xl px-8 py-4 font-semibold text-amber-800 bg-white"
               >
-                <div className="flex items-center justify-center gap-2">
-                  <FileText className="h-5 w-5" />
+                <div className="flex items-center justify-center gap-3">
+                  <FileText className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
                   Read Full Paper
                 </div>
-              </a>
+                {/* 裝飾層：不擋點擊 */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                     style={{ background: "linear-gradient(90deg, rgba(255,243,191,0.35), rgba(253,230,138,0.35))" }} />
+              </motion.a>
             </motion.div>
-
-            {/* 任何覆蓋全卡片的裝飾都請保持不可點擊 */}
-            {/* <div className="pointer-events-none absolute inset-0 ..."/> */}
           </div>
         </motion.div>
       </div>

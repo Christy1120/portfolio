@@ -71,12 +71,15 @@ const SCROLL_THRESHOLD = 48;
 // 懶載入（code splitting）
 const DataAnalysisInternDetail = React.lazy(() => import("./experience-details/DataAnalysisInternDetail"));
 const MetaverseResearcherDetail = React.lazy(() => import("./experience-details/MetaverseResearcherDetail"));
+const StudentResearch = React.lazy(() => import("./experience-details/StudentResearch"));
+
 // 之後新增頁面：照這樣加一行即可
 // const NewPageDetail = React.lazy(() => import("./experience-details/NewPageDetail"));
 
 const DETAIL_REGISTRY: Record<string, React.LazyExoticComponent<React.ComponentType>> = {
   "data-analysis": DataAnalysisInternDetail,
   "metaverse-researcher": MetaverseResearcherDetail,
+  "student-research" : StudentResearch,
   // "new-page-slug": NewPageDetail,
 };
 

@@ -10,7 +10,7 @@ import { CtaVersion8 } from "@/components/ui";
 
 export default function MetaverseResearcherDetail() {
   return (
-    <div className="mx-auto w-full space-y-20 bg-white p-6 font-sans md:p-12">
+    <div className="mx-auto w-full space-y-10 bg-white p-6 font-sans md:p-12">
       <WhatIDid />
       <Achievements />
       <RoleSection />
