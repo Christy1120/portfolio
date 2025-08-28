@@ -183,7 +183,7 @@ export default function TimelineWithRightImage() {
         <aside className="md:sticky md:top-24 h-fit">
           <figure className="overflow-hidden rounded-xl  shadow-sm">
             <img
-              src="/public/robot_flower.png" // ← 換成你的圖片路徑
+              src="/robot_flower.png" // ← 換成你的圖片路徑
               alt="Project visual"
               className="block w-full h-auto object-cover"
             />
