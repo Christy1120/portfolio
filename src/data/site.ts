@@ -1,5 +1,5 @@
 export const SITE = {
-  logoText: "K.T. · Product Minded",
+  logoText: "KAI TING",
   name: "KAI TING",
   email: "k09824719@gmail.com",
   resumeUrl: "#", // 放你的履歷連結（PDF 或 Drive）
