@@ -1,10 +1,8 @@
-// src/pages/ExperienceDetailOverlay.tsx
 import React, { useEffect, useRef, useState, Suspense } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { TIMELINE } from "../data/timeline";
 
-/** ===================== 背景樣式 ===================== */
 const BACKDROP = {
   primary: `
     radial-gradient(ellipse 120% 80% at 50% 0%, rgba(248,250,252,0.8) 0%, rgba(241,245,249,0.7) 40%, transparent 100%),
@@ -18,18 +16,19 @@ const BACKDROP = {
   noise: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E")`
 };
 
-/** ===================== 動畫參數 ===================== */
 const animations = {
   backdrop: {
-    initial: { opacity: 0, backdropFilter: "blur(0px)" as any },
+    initial: { opacity: 0, scale: 1 },
     animate: {
       opacity: 1,
-      backdropFilter: "blur(8px)" as any,
+      scale: 1,
+      backdropFilter: "blur(8px)",
       transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
     },
     exit: {
       opacity: 0,
-      backdropFilter: "blur(0px)" as any,
+      scale: 0.98,
+      backdropFilter: "blur(0px)",
       transition: { duration: 0.3, ease: [0.4, 0, 1, 1] }
     }
   },
@@ -52,7 +51,6 @@ const animations = {
   }
 };
 
-/** ===================== Body 鎖定（開啟 Overlay 時） ===================== */
 function useLockBody(lock: boolean) {
   useEffect(() => {
     if (!lock) return;
@@ -62,30 +60,22 @@ function useLockBody(lock: boolean) {
   }, [lock]);
 }
 
-/** ===================== Header 縮放參數 ===================== */
 const HEADER_LARGE = 152;
 const HEADER_SMALL = 88;
 const SCROLL_THRESHOLD = 48;
 
-/** ===================== 詳情頁註冊（可輕鬆擴充） ===================== */
-// 懶載入（code splitting）
 const DataAnalysisInternDetail = React.lazy(() => import("./experience-details/DataAnalysisInternDetail"));
 const MetaverseResearcherDetail = React.lazy(() => import("./experience-details/MetaverseResearcherDetail"));
 const StudentResearch = React.lazy(() => import("./experience-details/StudentResearch"));
 
-// 之後新增頁面：照這樣加一行即可
-// const NewPageDetail = React.lazy(() => import("./experience-details/NewPageDetail"));
-
 const DETAIL_REGISTRY: Record<string, React.LazyExoticComponent<React.ComponentType>> = {
   "data-analysis": DataAnalysisInternDetail,
   "metaverse-researcher": MetaverseResearcherDetail,
-  "student-research" : StudentResearch,
-  // "new-page-slug": NewPageDetail,
+  "student-research": StudentResearch
 };
 
 const normalize = (s?: string) => (s || "").trim().toLowerCase();
 
-/** ===================== Loading 與 NotFound ===================== */
 function Loading() {
   return (
     <div className="p-10 flex items-center justify-center">
@@ -100,26 +90,17 @@ function NotFound({ slug }: { slug?: string }) {
     <div className="p-12 text-center text-slate-600">
       <p className="text-lg font-semibold">Oops — 這個經歷尚未對應元件</p>
       <p className="mt-1 text-sm">
-        slug:{" "}
-        <code className="px-2 py-1 rounded bg-slate-100">{slug}</code>
-      </p>
-      <p className="mt-3 text-sm">
-        請到 <span className="font-mono">DETAIL_REGISTRY</span> 註冊或檢查 <span className="font-mono">TIMELINE</span> 的 slug。
+        slug: <code className="px-2 py-1 rounded bg-slate-100">{slug}</code>
       </p>
     </div>
   );
 }
 
-/** ===================== 主元件 ===================== */
 export default function ExperienceDetailOverlay() {
   const nav = useNavigate();
   const { slug } = useParams<{ slug: string }>();
   const key = normalize(slug);
-
-  // 從 TIMELINE 撈對應資料（大小寫無關）
   const item = TIMELINE.find((x) => normalize(x.slug) === key);
-
-  // 找對應的詳情頁元件
   const DetailComponent = DETAIL_REGISTRY[key];
 
   const [scrolled, setScrolled] = useState(false);
@@ -127,7 +108,6 @@ export default function ExperienceDetailOverlay() {
 
   useLockBody(true);
 
-  // 監聽 ESC & 內容區捲動
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && nav(-1);
     window.addEventListener("keydown", onKey);
@@ -142,14 +122,12 @@ export default function ExperienceDetailOverlay() {
     };
   }, [nav]);
 
-  // Header 顯示的安全值（即使 TIMELINE 還沒補，也不會空白）
   const period = item?.period || "";
-  const title  = item?.title  || (slug ? slug.replace(/-/g, " ") : "Detail");
+  const title = item?.title || (slug ? slug.replace(/-/g, " ") : "Detail");
   const company = item?.company || "";
 
   return (
     <AnimatePresence mode="wait">
-      {/* 背景遮罩（點擊關閉） */}
       <motion.div
         className="fixed inset-0 z-[100]"
         style={{ background: `${BACKDROP.primary}, ${BACKDROP.noise}`, backgroundBlendMode: "multiply, normal" }}
@@ -158,6 +136,7 @@ export default function ExperienceDetailOverlay() {
         animate="animate"
         exit="exit"
         onClick={() => nav(-1)}
+        whileTap={{ scale: 0.985 }}
         aria-hidden
       >
         <motion.div
@@ -169,38 +148,32 @@ export default function ExperienceDetailOverlay() {
         />
       </motion.div>
 
-      {/* Overlay 內容（點擊不關閉） */}
       <motion.div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="overlay-title"
         className="fixed inset-0 z-[101] flex items-center justify-center p-3 md:p-6"
         variants={animations.modal}
         initial="initial"
         animate="animate"
         exit="exit"
-        onClick={(e) => e.stopPropagation()}
         style={{ perspective: "1000px" }}
+        onClick={() => nav(-1)}
       >
         <motion.article
-          className="w-full h-full max-w-none max-h-none md:w-[95vw] md:h-[90vh] md:max-w-[1400px] md:max-h-[900px]
-                     bg-white/95 backdrop-blur-3xl rounded-3xl
-                     shadow-[0_32px_128px_rgba(2,6,23,0.25),0_8px_32px_rgba(2,6,23,0.1)]
-                     border border-white/80 overflow-hidden flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+          className="w-full h-full max-w-none max-h-none md:w-[95vw] md:h-[90vh] md:max-w-[1400px] md:max-h-[900px] bg-white/95 backdrop-blur-3xl rounded-3xl shadow-[0_32px_128px_rgba(2,6,23,0.25),0_8px_32px_rgba(2,6,23,0.1)] border border-white/80 overflow-hidden flex flex-col"
           layoutId={`experience-${key}`}
         >
-          {/* Header（高度過渡 + 左邊界不漂移） */}
           <motion.header
             className="sticky top-0 z-20 w-full border-b border-slate-200/70 bg-white/80"
             animate={{
               height: scrolled ? HEADER_SMALL : HEADER_LARGE,
               backdropFilter: scrolled ? "blur(12px) saturate(1.05)" : "blur(6px) saturate(1)",
-              boxShadow: scrolled ? "0 10px 30px rgba(2,6,23,0.06)" : "0 8px 24px rgba(2,6,23,0.04)",
+              boxShadow: scrolled ? "0 10px 30px rgba(2,6,23,0.06)" : "0 8px 24px rgba(2,6,23,0.04)"
             }}
             transition={{ type: "spring", stiffness: 260, damping: 28 }}
           >
             <div className="h-full flex items-center justify-between px-6 md:px-12">
-              {/* 左側群組（縮放，不漂移） */}
               <motion.div
                 className="flex flex-col items-start"
                 animate={{ scale: scrolled ? 0.86 : 1, y: scrolled ? -2 : 0 }}
@@ -208,38 +181,16 @@ export default function ExperienceDetailOverlay() {
                 style={{ transformOrigin: "left center", willChange: "transform" }}
               >
                 {period && (
-                  <div
-                    className="uppercase tracking-[0.3em] text-slate-500/90 font-bold leading-none"
-                    style={{ fontSize: 12 }}
-                  >
-                    {period}
-                  </div>
+                  <div className="uppercase tracking-[0.3em] text-slate-500/90 font-bold leading-none" style={{ fontSize: 12 }}>{period}</div>
                 )}
-
-                <h1
-                  id="overlay-title"
-                  className="font-black text-slate-900 leading-[1.05] mt-1"
-                  style={{ fontSize: 40 }}
-                >
-                  {title}
-                </h1>
-
+                <h1 id="overlay-title" className="font-black text-slate-900 leading-[1.05] mt-1" style={{ fontSize: 40 }}>{title}</h1>
                 {company && (
-                  <p
-                    className="text-slate-600/90 font-medium leading-none mt-2"
-                    style={{ fontSize: 15 }}
-                  >
-                    {company}
-                  </p>
+                  <p className="text-slate-600/90 font-medium leading-none mt-2" style={{ fontSize: 15 }}>{company}</p>
                 )}
               </motion.div>
-
-              {/* Close Button */}
               <motion.button
                 onClick={() => nav(-1)}
-                className="flex-shrink-0 rounded-2xl bg-white/80 hover:bg-white
-                          backdrop-blur-xl border border-white/60 shadow-lg
-                          flex items-center justify-center text-slate-700 font-light"
+                className="flex-shrink-0 rounded-2xl bg-white/80 hover:bg-white backdrop-blur-xl border border-white/60 shadow-lg flex items-center justify-center text-slate-700 font-light"
                 variants={animations.button}
                 initial="rest"
                 whileHover="hover"
@@ -253,7 +204,6 @@ export default function ExperienceDetailOverlay() {
             </div>
           </motion.header>
 
-          {/* 可滾動內容區：監聽這裡的 scroll */}
           <motion.div
             ref={scrollRef}
             className="flex-1 overflow-y-auto"

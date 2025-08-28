@@ -15,7 +15,6 @@ export default function MetaverseResearcherDetail() {
       <Achievements />
       <RoleSection />
       <Learnings />
-      <CtaVersion8  />
     </div>
   );
 }

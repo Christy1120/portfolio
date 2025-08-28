@@ -2,14 +2,25 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Home from "./pages/Home";
-import ExperienceDetail from "./pages/ExperienceDetail";            // 直接開頁
-import ExperienceDetailOverlay from "./pages/ExperienceDetailOverlay"; // 覆蓋層
+import ExperienceDetail from "./pages/ExperienceDetail";
+import ExperienceDetailOverlay from "./pages/ExperienceDetailOverlay";
+import Portfolio from "./pages/Portfolio";
 import ProjectDetail from "./pages/ProjectDetail";
 
 const pageVariants = {
   initial: { opacity: 0, y: 12, filter: "blur(4px)" },
-  in:      { opacity: 1, y: 0,  filter: "blur(0px)", transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
-  out:     { opacity: 0, y: -12, filter: "blur(4px)", transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } },
+  in: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+  },
+  out: {
+    opacity: 0,
+    y: -12,
+    filter: "blur(4px)",
+    transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 export default function App() {
@@ -32,6 +43,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/experience/:slug" element={<ExperienceDetail />} />
             <Route path="/project/:slug" element={<ProjectDetail />} />
+            <Route path="/portfolio" element={<Portfolio />} />
           </Routes>
         </motion.main>
       </AnimatePresence>
@@ -40,7 +52,10 @@ export default function App() {
       <AnimatePresence>
         {background && (
           <Routes>
-            <Route path="/experience/:slug" element={<ExperienceDetailOverlay />} />
+            <Route
+              path="/experience/:slug"
+              element={<ExperienceDetailOverlay />}
+            />
           </Routes>
         )}
       </AnimatePresence>

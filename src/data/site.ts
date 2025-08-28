@@ -1,10 +1,10 @@
 export const SITE = {
   logoText: "K.T. · Product Minded",
   name: "KAI TING",
-  email: "your.email@example.com",
+  email: "k09824719@gmail.com",
   resumeUrl: "#", // 放你的履歷連結（PDF 或 Drive）
   links: {
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/kai-ting-zhang-349292289/",
     github: "https://github.com/",
   },
 } as const
@@ -62,32 +62,40 @@ export const SKILL_GROUPS = [
   },
 ] as const
 
-export const PROJECTS = [
-  {
-    slug: "manufacturing-dashboard",
-    title: "製造資料可視化儀表板",
-    desc: "用 Streamlit 打造可互動的資料儀表板，支援即時篩選與瓶頸追蹤。",
-    tags: ["Streamlit","Pandas","Plotly"],
-    href: "#",
-    preview: "Demo Image / GIF"
-  },
+// src/data/site.ts
+export type Project = {
+  slug: string;
+  title: string;
+  desc: string;
+  preview: string;
+  tags: string[];
+  hero?: string;
+  images?: string[];
+  longDesc?: string;
+  links?: { demo?: string; repo?: string; doc?: string };
+  sections?: { heading: string; body: string; bullets?: string[] }[];
+  thumbnail?: string;          
+};
+
+export const PROJECTS: Project[] = [
   {
     slug: "decentralized-comic-platform",
-    title: "去中心化漫畫平台",
-    desc: "以區塊鏈驗證內容上架流程與授權，完成前後端原型。",
-    tags: ["Solidity","web3.js","Nginx"],
-    href: "#",
-    preview: "DApp Prototype"
+    title: "Decentralized Comic Platform",
+    desc: "用區塊鏈幫助漫畫家獲得更公平的收益",
+    preview: "Comic",
+    tags: ["Blockchain", "NFT", "Web3"],
+    hero: "./Blockchain Comic Adventure.png",
+    sections: [
+      {
+        heading: "我做了什麼",
+        body: "擔任組長：協調前後端、系統設計、UX、產品定位與 backlog 管理、行銷與簡報。",
+        bullets: ["智能合約分潤", "NFT 會員", "Pitch Deck + Demo"]
+      }
+    ]
   },
-  {
-    slug: "mite-detection-research",
-    title: "智慧農業：葉蟎偵測研究",
-    desc: "以深度學習影像辨識建立病害偵測流程，提交研究成果。",
-    tags: ["TensorFlow","OpenCV","研究方法"],
-    href: "#",
-    preview: "Research Poster"
-  },
-] as const
+  // …其他專案
+];
+
 export const TIMELINE = [
   {
     period: "2024 – Present",

@@ -1,62 +1,66 @@
-import React from "react";
-import { ArrowLeft } from "lucide-react";
-import { useProjectDetail } from "../hooks/useProjectDetail";
-import Nav from "../components/Nav";
-import {
-  ThemeCSS,
-  EnhancedBackgroundFX,
-  EnhancedNavigationBar,
-  EnhancedHeroSection,
-  EnhancedProjectHeader,
-  EnhancedTagsSection,
-  EnhancedActionButtons,
-  EnhancedSidebar,
-  EnhancedContentSections,
-  NotFoundView,
-} from "../components/project-detail";
-import FloatingScrollTop from "../components/FloatingScrollTop";
+// src/pages/ProjectDetail.tsx
+import React, { Suspense, lazy } from "react";
+import { useParams, Link } from "react-router-dom";
+import { PROJECTS, type Project } from "../data/site";
+
+// === 把每個 slug 對應到它的客製頁（用 lazy 做分包） ===
+const DecentComicPage = lazy(() => import("./profile/DecentComicPage"));
+// 之後要新增其他客製頁，照樣在上面 lazy import，然後加到表裡
+const CUSTOM_PAGES: Record<
+  string,
+  React.LazyExoticComponent<React.ComponentType<{ project: Project }>> | undefined
+> = {
+  "decentralized-comic-platform": DecentComicPage,
+  // "spotify-dashboard": lazy(() => import("./custom/SpotifyPage")),
+};
 
 export default function ProjectDetail() {
-  const { project, hero } = useProjectDetail();
+  const { slug } = useParams();
+  const project = PROJECTS.find((p) => p.slug === slug);
 
-  if (!project) return <NotFoundView />;
+  if (!project) return <div className="p-8">找不到這個專案 😢</div>;
 
+  const Custom = slug ? CUSTOM_PAGES[slug] : undefined;
+
+  // 有客製頁 → 直接渲染
+  if (Custom) {
+    return (
+      <Suspense fallback={<div className="p-8">頁面載入中…</div>}>
+        <Custom project={project} />
+      </Suspense>
+    );
+  }
+
+  // 沒客製頁 → 通用版
+  return <GeneralProjectPage project={project} />;
+}
+
+// === 通用版（給沒有客製頁的作品走） ===
+function GeneralProjectPage({ project }: { project: Project }) {
   return (
-    <div className="project-detail-theme min-h-screen relative bg-white">
-      <ThemeCSS />
-      <EnhancedBackgroundFX />
-      {typeof Nav === "function" && <Nav />}
+    <div className="mx-auto max-w-5xl px-6 py-10">
+      <Link to="/" className="text-sm text-slate-500 hover:underline">← 回到作品集</Link>
 
-      <div className="relative z-10 container mx-auto px-6 py-12">
-        <div className="max-w-7xl mx-auto">
-          <EnhancedHeroSection project={project} hero={hero} />
-          <div className="grid lg:grid-cols-3 gap-12 mb-20">
-            <div className="lg:col-span-2 space-y-10">
-              <EnhancedProjectHeader project={project} />
-              <EnhancedTagsSection tags={project.tags} />
-              <EnhancedActionButtons href={project.href} />
-              <div className="pd-glass-card rounded-xl p-8 pd-gentle-hover pd-fade-in-delay">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg" />
-                  專案概述
-                </h2>
-                {project.longDesc ? (
-                  <p className="text-base text-gray-700 leading-relaxed">
-                    {project.longDesc}
-                  </p>
-                ) : (
-                  <p className="text-base text-gray-500">暫無專案概述。</p>
-                )}
-              </div>
-            </div>
-            <EnhancedSidebar project={project} />
-          </div>
-          <EnhancedContentSections />
+      <h1 className="mt-2 text-3xl font-bold">{project.title}</h1>
+      <p className="mt-2 text-slate-600">{project.desc}</p>
+
+      {project.hero && (
+        <div className="mt-6 aspect-[16/9] w-full overflow-hidden rounded-xl border">
+          <img src={project.hero} alt={project.title} className="w-full h-full object-cover" />
         </div>
-      </div>
+      )}
 
-      {/* 永遠顯示的返回頂部按鈕 */}
-      <FloatingScrollTop />
+      {project.longDesc && (
+        <p className="mt-6 leading-7 text-slate-700">{project.longDesc}</p>
+      )}
+
+      {!!project.images?.length && (
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {project.images.map((src, i) => (
+            <img key={i} src={src} alt={`${project.title} ${i + 1}`} className="rounded-lg border" />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

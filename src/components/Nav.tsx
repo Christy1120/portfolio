@@ -10,7 +10,7 @@ export default function Nav() {
     { id: "home", label: "Home" },
     { id: "experience", label: "Experience" },
     { id: "skills", label: "Skills" },
-    { id: "portfolio", label: "Portfolio" },
+    { id: "portfolio", label: "Projects" },
     { id: "contact", label: "Contact" },
   ];
 

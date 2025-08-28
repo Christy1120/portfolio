@@ -1,6 +1,6 @@
 import React from "react";
 import { Calendar, User } from "lucide-react";
-import type { Project } from "../../hooks/useProjectDetail";
+import type { Project } from "../../features/project/hooks/useProjectDetail";
 
 export default function EnhancedSidebar({ project }: { project: Project }) {
   return (

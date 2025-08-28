@@ -10,7 +10,7 @@ export default function Achievements() {
       <div className="mt-8 grid gap-6 md:grid-cols-3" role="list">
         <AchievementCard
           icon={<Lightbulb />}
-          title="International Conference Presentation"
+          title="Poster Presentation at International Conference"
           desc={
             <>
               Published and presented findings at the{" "}

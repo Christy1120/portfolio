@@ -50,7 +50,7 @@ export default function WhatIDid() {
       <motion.div variants={itemVariants} className="space-y-6">
         <SectionTitleNumbered
           number="01"
-          title="Root Cause Analysis：Faster Insights for Factory Supervisors"
+          title="Root Cause Analysis：Faster Insights for Supervisors"
         />
         <FlowStepper items={FLOW_ITEMS} />
         <div className="rounded-xl ">
@@ -81,8 +81,7 @@ export default function WhatIDid() {
         />
         <div className="space-y-4">
           <InfoCard tag="Pain Point" tone="slate">
-            Stakeholders were unsure whether a quick proof-of-concept would be
-            feasible and helpful.
+            The client needed a new production indicator but manager was uncertain whether it would be impactful or technically feasible.
           </InfoCard>
           <InfoCard tag="Solution" tone="amber">
             <div>
@@ -136,7 +135,7 @@ export default function WhatIDid() {
               <li>Enabled data scientists to evaluate results more efficiently, cutting down manual work.</li>
               <li>Accelerated the process of identifying performance gaps and improvement opportunities.</li>
               <li>Improved clarity and communication between technical and non-technical stakeholders.</li>
-              <li>Successfully adopted by the data team as part of their regular validation workflow.</li>
+              <li>Successfully adopted by the data team as part of their  validation workflow.</li>
             </ul>
           </InfoCard>
           <RoleCard imageSrc="/girl_read.png" label="My Role">

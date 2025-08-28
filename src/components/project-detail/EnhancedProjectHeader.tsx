@@ -1,5 +1,5 @@
 import React from "react";
-import type { Project } from "../../hooks/useProjectDetail";
+import type { Project } from "../../features/project/hooks/useProjectDetail";
 
 export default function EnhancedProjectHeader({ project }: { project: Project }) {
   return (

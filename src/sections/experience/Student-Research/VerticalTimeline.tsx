@@ -174,8 +174,7 @@ export default function TimelineWithRightImage() {
 
           <TimelineItem tag="Validations" tone="amber" index={2}>
             <p className="font-bold text-slate-900 mb-3 text-base">
-              Validated the prototype through experiments, highlighting both detection
-              accuracy and practical deployment considerations.
+              Validated recognition accuracy through experiments, identifying strengths and limitations for future deployment.
             </p>
           </TimelineItem>
         </Timeline>

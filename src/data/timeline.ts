@@ -22,20 +22,20 @@ export const TIMELINE: ReadonlyArray<TimelineItem> = [
   
   {
     slug: " Student-Research",
-    title: "NSTC Student Research Project",
+    title: "NSTC Student Research Project – AI for Agriculture",
     company: "Taipei University of Business – National Science & Technology Council (NSTC) Sponsored Project",
     period: "Jul 2024 – Feb 2025",
     summary:
-      "Defined the project objective as using deep learning techniques to detect spider mite damage on rose leaves, with the goal of showing how modern AI can help solve real problems in agriculture.",
+      "Led a research project applying deep learning to detect spider mite damage on rose leaves, demonstrating how AI can address real agricultural problems. Published the findings as first author at IEEE ICCE 2025, where the work received the Best Presentation Award.",
     tags: ["Problem Definition", "DeepLearning", "ComputerVision"],
   },
   {
     slug: "Metaverse-Researcher",
-    title: "NSTC Project Researcher",
+    title: "NSTC Research Project – Metaverse & Arts Industry",
     company: "Taipei University of Business – National Science & Technology Council (NSTC) Sponsored Project",
     period: "Jul 2022 – Mar 2023  ",
     summary:
-      "Led a government-funded research project exploring how emerging technologies like the metaverse reshape the arts industry, using market research frameworks and executive interviews to surface adoption challenges and strategies, with findings published at ICIM.",
+      "Served as first author on a government-funded research project exploring how emerging technologies like the metaverse reshape the arts industry. Applied market research frameworks and conducted executive interviews to surface adoption challenges and strategies, with findings published as a poster presentation at ICIM.",
     tags: ["Market Research", "Industry Expert Interview", "Case Study Research", "Business Model Analysis"],
   },
 ];
