@@ -84,7 +84,7 @@ export const PROJECTS: Project[] = [
     desc: "用區塊鏈幫助漫畫家獲得更公平的收益",
     preview: "Comic",
     tags: ["Blockchain", "NFT", "Web3"],
-    hero: "./Blockchain Comic Adventure.png",
+    hero: "/Blockchain Comic Adventure.png",
     sections: [
       {
         heading: "我做了什麼",

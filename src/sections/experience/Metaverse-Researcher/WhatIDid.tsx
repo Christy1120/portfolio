@@ -10,19 +10,19 @@ export default function WhatIDidSection() {
     {
       title: "Interview with Industry Leadership",
       text: "Reached out to and scheduled an interview with the CEO of an art-tech startup, then conducted the interview to understand the company’s adoption of metaverse technologies and related challenges.",
-      img: "/public/girl_interview.png",
+      img: "/girl_interview.png",
       side: "right",
     },
     {
       title: "Comprehensive Data Collection & Field Study", 
       text: "Collected data through literature review, case materials, and field observations, including interactive exhibition experiences.",
-      img: "/public/girl_read.png",
+      img: "/girl_read.png",
       side: "left",
     },
     {
       title: "Framework-Based Industry Analysis",
       text: "Organized and analyzed findings using structured frameworks (PEST, CPND) to evaluate opportunities and barriers in the arts industry.",
-      img: "/public/girl_type.png",
+      img: "/girl_type.png",
       side: "right",
     },
   ];
