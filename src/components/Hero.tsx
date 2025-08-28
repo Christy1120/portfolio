@@ -137,7 +137,7 @@ export default function Hero() {
           className="p-8"
         >
           <motion.img
-            src="/public/girl.png"
+            src="/girl.png"
             alt="pic"
             className="w-full h-auto rounded-xl"
             animate={{ y: [0, -10, 0] }}
