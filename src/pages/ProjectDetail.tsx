@@ -25,7 +25,7 @@ export default function ProjectDetail() {
   // 有客製頁 → 直接渲染
   if (Custom) {
     return (
-      <Suspense fallback={<div className="p-8">頁面載入中…</div>}>
+      <Suspense fallback={<div className="p-8">Page loading…</div>}>
         <Custom project={project} />
       </Suspense>
     );
