@@ -152,7 +152,7 @@ export default function FlowStepper({
                       animate={{ scale: 1, y: 0 }}
                       transition={{ delay: 1, type: "spring", stiffness: 200 }}
                     >
-                      ✨ 成果
+                      ✨ Result
                     </motion.div>
                   )}
 

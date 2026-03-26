@@ -165,29 +165,42 @@ export default function ExperienceDetailOverlay() {
           layoutId={`experience-${key}`}
         >
           <motion.header
-            className="sticky top-0 z-20 w-full border-b border-slate-200/70 bg-white/80"
+            className="sticky top-0 z-20 w-full border-b border-slate-200/70 bg-white/80 flex flex-col justify-center"
             animate={{
-              height: scrolled ? HEADER_SMALL : HEADER_LARGE,
+              minHeight: scrolled ? HEADER_SMALL : HEADER_LARGE, // 💡 改用 minHeight 讓高度有彈性
               backdropFilter: scrolled ? "blur(12px) saturate(1.05)" : "blur(6px) saturate(1)",
               boxShadow: scrolled ? "0 10px 30px rgba(2,6,23,0.06)" : "0 8px 24px rgba(2,6,23,0.04)"
             }}
             transition={{ type: "spring", stiffness: 260, damping: 28 }}
           >
-            <div className="h-full flex items-center justify-between px-6 md:px-12">
+            <div className="w-full flex items-center justify-between px-5 md:px-12 py-4">
               <motion.div
-                className="flex flex-col items-start"
+                className="flex flex-col items-start pr-4"
                 animate={{ scale: scrolled ? 0.86 : 1, y: scrolled ? -2 : 0 }}
                 transition={{ type: "spring", stiffness: 320, damping: 26 }}
                 style={{ transformOrigin: "left center", willChange: "transform" }}
               >
                 {period && (
-                  <div className="uppercase tracking-[0.3em] text-slate-500/90 font-bold leading-none" style={{ fontSize: 12 }}>{period}</div>
+                  <div className="uppercase tracking-[0.3em] text-slate-500/90 font-bold leading-none text-[10px] md:text-[12px]">
+                    {period}
+                  </div>
                 )}
-                <h1 id="overlay-title" className="font-black text-slate-900 leading-[1.05] mt-1" style={{ fontSize: 40 }}>{title}</h1>
+                
+                {/* 💡 RWD 字體設定：手機版 text-2xl，電腦版 md:text-[40px] */}
+                <h1 
+                  id="overlay-title" 
+                  className="font-black text-slate-900 leading-[1.15] mt-1 text-2xl md:text-[40px]"
+                >
+                  {title}
+                </h1>
+                
                 {company && (
-                  <p className="text-slate-600/90 font-medium leading-none mt-2" style={{ fontSize: 15 }}>{company}</p>
+                  <p className="text-slate-600/90 font-medium leading-[1.3] mt-2 text-xs md:text-[15px]">
+                    {company}
+                  </p>
                 )}
               </motion.div>
+
               <motion.button
                 onClick={() => nav(-1)}
                 className="flex-shrink-0 rounded-2xl bg-white/80 hover:bg-white backdrop-blur-xl border border-white/60 shadow-lg flex items-center justify-center text-slate-700 font-light"
