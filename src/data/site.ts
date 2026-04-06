@@ -1,3 +1,5 @@
+// src/data/site.ts
+
 export const SITE = {
   logoText: "KAI TING",
   name: "KAI TING",
@@ -7,20 +9,9 @@ export const SITE = {
     linkedin: "https://www.linkedin.com/in/kai-ting-zhang-349292289/",
     github: "https://github.com/",
   },
-} as const
+} as const;
 
 export const EXPERIENCES = [
-  {
-    title: "研究助理（智慧農業 × 視覺辨識）",
-    company: "國家科學及技術委員會 專題研究計畫",
-    period: "2024–2025",
-    points: [
-      "建立深度學習影像辨識流程，驗證應用於玫瑰葉蟎防治場景。",
-      "以實驗數據與田間觀察迭代模型設定，撰寫研究報告與簡報。",
-      "以里程碑切分研究進度，追蹤風險與依賴項，確保如期交付。"
-    ],
-    stack: ["Python","TensorFlow","OpenCV","實驗設計"]
-  },
   {
     title: "資料分析實習生",
     company: "百威雷科技（Digi+ 跨域數位人才加速躍升實習）",
@@ -42,7 +33,7 @@ export const EXPERIENCES = [
     ],
     stack: ["Solidity","web3.js","Nginx"]
   }
-] as const
+] as const;
 
 export const SKILL_GROUPS = [
   {
@@ -60,9 +51,8 @@ export const SKILL_GROUPS = [
     subtitle: "與工程設計協作更順暢",
     items: ["JavaScript/TypeScript","React","PostgreSQL","Nginx","Solidity","web3.js","Git/GitHub"]
   },
-] as const
+] as const;
 
-// src/data/site.ts
 export type Project = {
   slug: string;
   title: string;
@@ -93,7 +83,14 @@ export const PROJECTS: Project[] = [
       }
     ]
   },
-  // …其他專案
+  {
+    slug: "ai-agriculture",
+    title: "AI for Agriculture",
+    desc: "Applying Deep Learning to Address Agricultural Challenges & Early Pest Detection.",
+    preview: "Computer Vision", 
+    tags: ["Deep Learning", "Computer Vision", "Research"],
+    hero: "/girl_type.png", 
+  }
 ];
 
 export const TIMELINE = [
@@ -104,14 +101,6 @@ export const TIMELINE = [
     summary:
       "開發 ETL 數據處理流程，結合 LLM 技術實作自動化分析報表生成；負責跨部門需求整合與產品功能設計，展現產品經理必備的技術理解能力與策略思維。",
     tags: ["ETL Pipeline", "LLM Integration", "Dashboard Design", "需求分析"],
-  },
-  {
-    period: "2024",
-    title: "國科會專題研究計畫主持人",
-    company: "臺北商業大學 · 深度學習視覺辨識技術應用",
-    summary:
-      "領導跨領域研究團隊，負責專案規劃與執行管理；深入研究商業模式與技術應用場景，展現產品經理所需的市場研究能力、策略思維與團隊領導力。",
-    tags: ["專案管理", "市場研究", "團隊領導", "商業分析"],
   },
   {
     period: "2023 – 2024",

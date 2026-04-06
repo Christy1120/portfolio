@@ -1,66 +1,57 @@
 // src/pages/ProjectDetail.tsx
-import React, { Suspense, lazy } from "react";
-import { useParams, Link } from "react-router-dom";
-import { PROJECTS, type Project } from "../data/site";
-
-// === 把每個 slug 對應到它的客製頁（用 lazy 做分包） ===
-const DecentComicPage = lazy(() => import("./profile/DecentComicPage"));
-// 之後要新增其他客製頁，照樣在上面 lazy import，然後加到表裡
-const CUSTOM_PAGES: Record<
-  string,
-  React.LazyExoticComponent<React.ComponentType<{ project: Project }>> | undefined
-> = {
-  "decentralized-comic-platform": DecentComicPage,
-  // "spotify-dashboard": lazy(() => import("./custom/SpotifyPage")),
-};
+import React from 'react';
+import { useProjectDetail } from '../features/project/hooks/useProjectDetail';
+import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProjectDetail() {
-  const { slug } = useParams();
-  const project = PROJECTS.find((p) => p.slug === slug);
+  const navigate = useNavigate();
+  // ⚡️ 直接呼叫你寫好的 Hook，資料就全部拿到了！
+  const { project, heroData } = useProjectDetail();
 
-  if (!project) return <div className="p-8">找不到這個專案 😢</div>;
-
-  const Custom = slug ? CUSTOM_PAGES[slug] : undefined;
-
-  // 有客製頁 → 直接渲染
-  if (Custom) {
+  // 如果網址亂輸入，找不到專案的防呆機制
+  if (!project) {
     return (
-      <Suspense fallback={<div className="p-8">Page loading…</div>}>
-        <Custom project={project} />
-      </Suspense>
+      <div className="min-h-screen flex items-center justify-center text-pink-500 font-mono">
+        [ ERROR // 404_PROJECT_NOT_FOUND ]
+      </div>
     );
   }
 
-  // 沒客製頁 → 通用版
-  return <GeneralProjectPage project={project} />;
-}
-
-// === 通用版（給沒有客製頁的作品走） ===
-function GeneralProjectPage({ project }: { project: Project }) {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-10">
-      <Link to="/" className="text-sm text-slate-500 hover:underline">← 回到作品集</Link>
+    <div className="min-h-screen pt-32 px-6 md:px-12 max-w-7xl mx-auto">
+      {/* 返回按鈕 */}
+      <button 
+        onClick={() => navigate(-1)}
+        className="group flex items-center gap-2 text-zinc-500 font-mono text-xs tracking-widest uppercase mb-12 hover:text-pink-400 transition-colors"
+      >
+        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+        Return to System
+      </button>
 
-      <h1 className="mt-2 text-3xl font-bold">{project.title}</h1>
-      <p className="mt-2 text-slate-600">{project.desc}</p>
+      {/* 渲染從 Hook 拿到的 heroData */}
+      <div className="max-w-4xl">
+        <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
+          {heroData.title}
+        </h1>
+        <p className="text-xl text-zinc-400 leading-relaxed mb-12">
+          {heroData.subtitle}
+        </p>
+      </div>
 
-      {project.hero && (
-        <div className="mt-6 aspect-[16/9] w-full overflow-hidden rounded-xl border">
-          <img src={project.hero} alt={project.title} className="w-full h-full object-cover" />
-        </div>
-      )}
-
-      {project.longDesc && (
-        <p className="mt-6 leading-7 text-slate-700">{project.longDesc}</p>
-      )}
-
-      {!!project.images?.length && (
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {project.images.map((src, i) => (
-            <img key={i} src={src} alt={`${project.title} ${i + 1}`} className="rounded-lg border" />
+      {/* 渲染從 Hook 拿到的專案細節 (Scope) */}
+      <div className="border-t border-white/10 pt-12">
+        <p className="text-zinc-500 font-mono text-sm tracking-widest uppercase mb-6">
+          [ SYSTEM // PROJECT_SCOPE ]
+        </p>
+        <ul className="flex flex-wrap gap-4">
+          {project.scope.map((s, idx) => (
+            <li key={idx} className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-zinc-300 font-mono text-xs">
+              {s}
+            </li>
           ))}
-        </div>
-      )}
+        </ul>
+      </div>
     </div>
   );
 }

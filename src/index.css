@@ -22,7 +22,7 @@
            bg-white/80 backdrop-blur border-slate-200;
   }
 
-  .card { @apply rounded-2xl border border-slate-200 bg-white shadow-soft; } /* 若無自定 shadow-soft，改 shadow-lg */
+  .card { @apply rounded-2xl border border-slate-200 bg-white shadow-lg; } /* 若無自定 shadow-soft，改 shadow-lg */
   .lead { @apply text-lg text-slate-600; }
   .link { @apply underline decoration-2 underline-offset-4 hover:decoration-4; }
 

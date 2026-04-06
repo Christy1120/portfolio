@@ -1,45 +1,24 @@
 // src/pages/Home.tsx
-import Nav from "../components/Nav";
-import Hero from "../components/Hero";
-import ExperienceTimeline from "../pages/ExperienceTimeline";
-import Skills from "../components/Skills";
-import Portfolio from "../components/Portfolio";
-import Contact from "../components/Contact";
-import Footer from "../components/Footer";
+import React from 'react';
+import HeroSection from '../components/HeroSection';
+import InteractiveShowcase from '../components/InteractiveShowcase';
+import SkillsSection from "../components/Skills";
+import ProjectShowcase from '../ProjectShowcase';
+import Contact from '@/components/Contact';
 
 export default function Home() {
   return (
-    <div className="font-sans">
-      {/* 頂部導覽 */}
-      {typeof Nav === "function" && <Nav />}
-
-      {/* 首頁 Hero 區塊 */}
-      <section id="home" className="scroll-mt-24">
-        {typeof Hero === "function" && <Hero />}
-      </section>
-
-      {/* 經歷 */}
-      <section id="experience" className="scroll-mt-24">
-        <ExperienceTimeline />
-      </section>
-
-      {/* 技能 */}
-      <section id="skills" className="scroll-mt-24">
-        {typeof Skills === "function" && <Skills />}
-      </section>
-
-      {/* 作品集（提供 #portfolio 給返回按鈕與 Nav 使用） */}
-      <section id="portfolio" className="scroll-mt-6">
-        {typeof Portfolio === "function" && <Portfolio />}
-      </section>
-
-      {/* 聯繫 */}
-      <section id="contact" className="scroll-mt-24">
-        {typeof Contact === "function" && <Contact />}
-      </section>
-
-      {/* 頁尾 */}
-      {typeof Footer === "function" && <Footer />}
-    </div>
+    // 🌟 將 overflow-x-hidden 替換為 overflow-clip
+    <main className="w-full bg-[#0a0000] min-h-screen overflow-clip">
+      {/* 區塊 1：開場 */}
+      <HeroSection />
+      
+      {/* 區塊 3：釘選互動履歷 */}
+      <InteractiveShowcase />
+      <SkillsSection />
+      <ProjectShowcase/>
+      
+      <Contact/>
+    </main>
   );
 }

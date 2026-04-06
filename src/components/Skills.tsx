@@ -1,213 +1,276 @@
-import React, { useState } from "react";
-import { CheckCircle2, Award, ExternalLink } from "lucide-react";
+// src/components/SkillsBento.tsx
+import React, { MouseEvent, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { 
+  Database, 
+  Award, 
+  Cpu, 
+  LayoutTemplate, 
+  Users, 
+  ExternalLink,
+  LineChart
+} from 'lucide-react';
 
-export default function SkillsSection() {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+// 註冊 GSAP 滾動套件
+gsap.registerPlugin(ScrollTrigger);
 
-  const skills: Record<string, string[]> = {
-    "Product Management & Research": [
-      "Problem Framing",
-      "Industry Analysis",
-      "Wireframing",
-    ],
-    "Data & Analytics": [
-      "Python (pandas, matplotlib)",
-      "Dashboarding & Visualization",
-      "Root Cause Analysis",
-    ],
-    "Communication & Leadership": [
-      "Stakeholder Management",
-      "Cross-functional Collaboration",
-      "Product Storytelling",
-    ],
+// --- Types ---
+interface BentoCardProps {
+  id: string;
+  title: string;
+  description: string;
+  label: string;
+  icon: React.ReactNode;
+  tags: string[];
+  href?: string;
+  className?: string;
+}
+
+// --- English Mock Data (Based on Resume) ---
+const skillsData: BentoCardProps[] = [
+  {
+    id: 'cert-data',
+    title: 'Data Analytics',
+    description: 'Certified in leveraging Python and statistical analysis to uncover insights. Applied at PowerArena to analyze 10,000+ manufacturing records and deliver Root Cause Analysis (RCA) reports.',
+    label: '[ CERT // GOOGLE ]',
+    icon: <LineChart className="w-5 h-5 text-pink-500" />,
+    tags: ['Python', 'Pandas', 'Data Viz', 'RCA'],
+    href: 'https://coursera.org/share/6629f0600047688b02b0daa088468abc',
+    className: 'md:col-span-2 md:row-span-2', // 大卡片
+  },
+  {
+    id: 'cert-pm',
+    title: 'Project Management',
+    description: 'Combining Google’s methodology with real-world execution of 4+ large-scale projects. Specialist in translating stakeholder pain points into Product Requirements (SOWs) and leading cross-functional teams for successful digital implementation.',
+    label: '[ CERT // GOOGLE ]',
+    icon: <Award className="w-5 h-5 text-pink-500" />,
+    tags: ['SOW', 'Agile', 'Stakeholder Mgmt'],
+    href: 'https://coursera.org/share/4d74b0f51b71c9ce756393d7bcd3141c',
+    className: 'md:col-span-2 md:row-span-2', // 大卡片
+  },
+  {
+    id: 'skill-ai',
+    title: 'AI & LLM Automation',
+    description: 'Pilot AI Agent MVP experiments using Dify. Built automated workflows for data cleaning and report generation, validating the commercial viability of LLMs in industrial engineering.',
+    label: '[ SYS // AI_AGENT ]',
+    icon: <Cpu className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />,
+    tags: ['Dify', 'LLM Workflow', 'MVP'],
+    className: 'md:col-span-2',
+  },
+  {
+    id: 'skill-frontend',
+    title: 'Vibe Coding &  Prototyping',
+    description: 'Adept at leveraging Wireframes and Vibe Coding to bridge communication gaps and accelerate project execution. ',
+    label: '[ SYS // DEV ]',
+    icon: <LayoutTemplate className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />,
+    tags: ['Vibe Coding', 'Wireframing', 'Rapid Prototyping'],
+    className: 'md:col-span-1',
+  },
+  {
+    id: 'skill-comms',
+    title: 'Strategic Proposal',
+    description: 'Adept at uncovering business pain points and translating them into  digital solution. Successfully orchestrated 2 project proposals  , delivering professional-grade strategic plans that earned satisfaction from enterprise clients.',
+    label: '[ SYS // B2B ]',
+    icon: <Users className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />,
+    tags: ['Problem Framing', 'Proposal'],
+    className: 'md:col-span-1',
+  }
+];
+
+// --- Component ---
+export default function SkillsBento() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  // 要被刷洗的段落文字
+  const paragraphText = "A versatile toolkit spanning data analysis, project management, and vibe coding, designed to ship value from discovery to delivery.";
+  const words = paragraphText.split(" ");
+
+  // --- GSAP Text Scrubbing 動畫 ---
+  useEffect(() => {
+    // 使用 gsap.context 確保在 React 重新渲染時能正確清理動畫
+    const ctx = gsap.context(() => {
+      // 1. 標題 (Skillset) 的漸進式刷洗
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { 
+            backgroundPosition: "200% center",
+            opacity: 0.5 
+          },
+          {
+            backgroundPosition: "0% center",
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+              end: "bottom 60%",
+              scrub: 0.5,
+            }
+          }
+        );
+      }
+
+      // 2. 段落文字的逐字亮起刷洗
+      if (textRef.current) {
+        gsap.fromTo(
+          ".scrub-word",
+          { 
+            color: "rgba(148, 163, 184, 0.2)",
+             // text-slate-400 低透明度
+          },
+          {
+            color: "rgba(245, 178, 213, 1)", // 亮白色 text-slate-50
+            stagger: 0.1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: textRef.current,
+              start: "top 85%",
+              end: "bottom 55%",
+              scrub: 0.5,
+            }
+          }
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert(); // 清理動畫，避免 Memory Leak
+  }, []);
+
+  // --- 處理滑鼠追蹤光暈特效 (Vercel Style Spotlight) ---
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const cards = document.getElementsByClassName('bento-card');
+    for (const card of cards) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+    }
   };
 
-  const certs: { name: string; url: string; issuer?: string }[] = [
-    {
-      name: "Google Advanced Data Analytics",
-      url: "https://coursera.org/share/6629f0600047688b02b0daa088468abc",
-      issuer: "Google / Coursera",
-    },
-    {
-      name: "Google Project Management",
-      url: "https://coursera.org/share/4d74b0f51b71c9ce756393d7bcd3141c",
-      issuer: "Google / Coursera",
-    },
-    {
-      name: "Foundations of User Experience (UX) Design",
-      url: "https://coursera.org/share/a33072d02da9701b9d3660b446e6ddd4",
-      issuer: "University of Virginia, Coursera",
-    },
-  ];
-
   return (
-    <section id="skills" className="bg-white py-20 relative overflow-hidden">
-      {/* 背景裝飾 */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-yellow-100 to-amber-100 rounded-full opacity-30 animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-24 h-24 bg-gradient-to-br from-amber-100 to-yellow-200 rounded-full opacity-20 animate-pulse delay-1000"></div>
-      </div>
-      
-      <div className="mx-auto max-w-6xl px-6 relative">
-        {/* 標題區 - 增加淡入動畫 */}
-        <header className="mb-12 text-center transform transition-all duration-1000 animate-fadeIn">
-          <div className="inline-block">
-            <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 to-amber-400 mx-auto mb-4 rounded-full animate-shimmer"></div>
-            <h2 className="text-4xl font-bold tracking-tight text-slate-900 mb-3">
-              Skills & Tools
-            </h2>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-              A practical stack I use to ship value from discovery to delivery.
-            </p>
-          </div>
-        </header>
+    <section 
+      id="skills" 
+      ref={containerRef}
+      className="bg-black py-24 relative flex justify-center w-full overflow-hidden" // 建議直接用 bg-black
+      style={{
+        backgroundColor: 'hsla(21,0%,0%,1)', // ✅ 移除分號
+        backgroundImage: `
+         radial-gradient(at 63% 34%, hsla(345,90%,87%,0.28) 0px, transparent 50%),
+          radial-gradient(at 33% 44%, hsla(345,67%,63%,0.13) 0px, transparent 50%)
+        ` // ✅ 移除分號
+      }}
+    >
+      <div className="w-full max-w-6xl px-6 relative z-10">
+        
+        {/* === Text Scrubbing 標題區塊 === */}
+        <div className="mb-16 max-w-3xl">
+          
+          
+          <h2 
+            ref={headerRef}
+            className="text-4xl md:text-5xl font-bold tracking-tight mb-6 pb-1 inline-block text-transparent bg-clip-text"
+            style={{
+              backgroundImage: "linear-gradient(90deg, #ffffff 0%, #ffaad7ff 50%, rgba(255,255,255,0.1) 100%)",
+              backgroundSize: "200% auto",
+            }}
+          >
+            Skills
+          </h2>
+          
+          <p 
+            ref={textRef} 
+            className="text-lg md:text-xl font-bold  leading-relaxed flex flex-wrap gap-x-[0.35rem] gap-y-1"
+          >
+            {words.map((word, i) => (
+              <span 
+                key={i} 
+                className="scrub-word transition-colors duration-75"
+              >
+                {word}
+              </span>
+            ))}
+          </p>
+        </div>
 
-        {/* Skills Grid - 卡片懸浮動畫與漸變效果 */}
-        <div className="mb-16 grid gap-8 md:grid-cols-3">
-          {Object.entries(skills).map(([category, items], index) => (
-            <div
-              key={category}
-              className="group relative transform transition-all duration-500 hover:scale-105 animate-slideUp h-full"
-              style={{ animationDelay: `${index * 200}ms` }}
-              onMouseEnter={() => setHoveredCard(category)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                {/* 動態上緣色條 */}
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                
-                {/* 懸浮時的背景光暈 */}
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                <div className="p-8 relative flex flex-col flex-1">
-                  <h3 className="text-xl font-semibold text-slate-900 mb-5 group-hover:text-amber-600 transition-colors duration-300">
-                    {category}
-                  </h3>
-                  <div className="flex flex-wrap gap-3 flex-1 content-start">
-                    {items.map((item, itemIndex) => (
-                      <span
-                        key={item}
-                        className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-sm text-slate-700 bg-white hover:bg-yellow-50 hover:border-yellow-300 transition-all duration-200 transform hover:scale-105 animate-fadeInUp"
-                        style={{ animationDelay: `${(index * 200) + (itemIndex * 100)}ms` }}
+        {/* === Bento Grid Container === */}
+        <div 
+          className="group grid grid-cols-1 md:grid-cols-4 gap-4"
+          onMouseMove={handleMouseMove}
+        >
+          {skillsData.map((card, index) => {
+            // 動態決定要渲染 <a> 還是 <div>
+            const CardWrapper = card.href ? 'a' : 'div';
+            const wrapperProps = card.href 
+              ? { href: card.href, target: '_blank', rel: 'noopener noreferrer' } 
+              : {};
+
+            return (
+              <motion.div
+                key={card.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`bento-card relative rounded-2xl bg-white/[0.02] border border-white/10 overflow-hidden flex flex-col p-6 transition-all duration-300 hover:border-pink-500/30 hover:bg-white/[0.04] ${card.className}`}
+                style={{ minHeight: '240px' }}
+              >
+                {/* 互動式滑鼠光暈 (Spotlight Effect) */}
+                <div 
+                  className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-300 group-hover:opacity-100"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 20, 147, 0.15), transparent 40%)`,
+                    zIndex: 0
+                  }}
+                />
+
+                <CardWrapper 
+                  {...wrapperProps} 
+                  className="relative z-10 flex flex-col h-full cursor-pointer focus:outline-none"
+                >
+                  {/* Top: Label, Icon, and External Link Indicator */}
+                  <div className="flex justify-between items-start mb-6">
+                   
+                    <div className="flex items-center gap-3">
+                      {card.href && (
+                        <ExternalLink className="w-4 h-4 text-slate-500 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-pink-400" />
+                      )}
+                      {card.icon}
+                    </div>
+                  </div>
+
+                  {/* Middle: Text Content */}
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-semibold text-slate-100 mb-3 group-hover:text-white transition-colors">
+                      {card.title}
+                    </h3>
+                    <p className="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
+                      {card.description}
+                    </p>
+                  </div>
+
+                  {/* Bottom: Tags */}
+                  <div className="flex flex-wrap gap-2 mt-6 pt-4 border-t border-white/5">
+                    {card.tags.map(tag => (
+                      <span 
+                        key={tag} 
+                        className="text-xs font-medium text-slate-300 bg-white/5 px-3 py-1.5 rounded-full border border-white/5"
                       >
-                        <CheckCircle2 className="h-4 w-4 text-amber-500 animate-bounce-subtle" />
-                        {item}
+                        {tag}
                       </span>
                     ))}
                   </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Certifications - 動畫列表 */}
-        <div className="animate-fadeIn" style={{ animationDelay: '800ms' }}>
-          <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold text-slate-900 mb-2">
-              Certifications & Learning
-            </h3>
-            <div className="w-20 h-1 bg-gradient-to-r from-yellow-400 to-amber-400 mx-auto rounded-full"></div>
-          </div>
-          
-          <ul className="space-y-4 max-w-3xl mx-auto">
-            {certs.map(({ name, url, issuer }, index) => (
-              <li 
-                key={name}
-                className="animate-slideInLeft"
-                style={{ animationDelay: `${1000 + (index * 150)}ms` }}
-              >
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white px-6 py-4 transition-all duration-300 hover:border-yellow-300 hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 hover:shadow-lg hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 transform"
-                  aria-label={`${name} (opens in new tab)`}
-                >
-                  <span className="flex min-w-0 items-center gap-4">
-                    <div className="relative">
-                      <Award className="h-6 w-6 shrink-0 text-amber-500 group-hover:rotate-12 transition-transform duration-300" />
-                      <div className="absolute -inset-2 bg-yellow-200 rounded-full opacity-0 group-hover:opacity-20 animate-ping"></div>
-                    </div>
-                    <span className="truncate">
-                      <span className="block truncate font-medium text-slate-800 group-hover:text-amber-700 transition-colors duration-300">
-                        {name}
-                      </span>
-                      {issuer && (
-                        <span className="block truncate text-sm text-slate-500 group-hover:text-amber-600 transition-colors duration-300">
-                          {issuer}
-                        </span>
-                      )}
-                    </span>
-                  </span>
-                  <ExternalLink className="h-5 w-5 shrink-0 opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 text-amber-500" />
-                </a>
-              </li>
-            ))}
-          </ul>
+                </CardWrapper>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
-
-      <style >{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(-30px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes shimmer {
-          0% { transform: scaleX(0.8); opacity: 0.5; }
-          50% { transform: scaleX(1.2); opacity: 1; }
-          100% { transform: scaleX(0.8); opacity: 0.5; }
-        }
-        
-        @keyframes bounce-subtle {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-2px); }
-        }
-        
-        .animate-fadeIn {
-          animation: fadeIn 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-slideUp {
-          animation: slideUp 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-fadeInUp {
-          animation: fadeInUp 0.4s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-slideInLeft {
-          animation: slideInLeft 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-shimmer {
-          animation: shimmer 2s ease-in-out infinite;
-        }
-        
-        .animate-bounce-subtle {
-          animation: bounce-subtle 2s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 }

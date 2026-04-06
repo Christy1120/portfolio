@@ -9,7 +9,7 @@ export { default as TagPill } from "./atoms/TagPill";
 export { default as InfoCard } from "./molecules/InfoCard";
 export { default as RolePill } from "./molecules/RolePill";
 export { default as FlowStepper } from "./molecules/FlowStepper";
-export { default as EmpathyMap } from "./molecules/EmpathyMap";
+export { default as EmpathyMap } from "../EmpathyMap";
 // 既有內容保留，再補下面幾行
 export { default as Para } from "./atoms/Para";
 export { default as CenterNote } from "./atoms/CenterNote";
