@@ -11,7 +11,7 @@ import Ai_Aent from "./pages/Ai_Aent";
 import Web3toon from './pages/Web3toon';
 import RosePestAI from './pages/RosePestAI';
 import NSTC_Metaverse from './pages/NSTC_Metaverse'
-
+import ScrollToTop from './components/ScrollToTop';
 const pageVariants = {
   initial: { opacity: 0, y: 12, filter: "blur(4px)" },
   in: {
@@ -48,6 +48,7 @@ export default function App() {
 
   return (
     <>
+    <ScrollToTop />
       {/* [ SYSTEM // LOGIC ]: 
          只有在非客製化頁面時才渲染 Nav。
          這能確保沉浸式頁面（如 Data_Analysis）擁有完全的視覺控制權。

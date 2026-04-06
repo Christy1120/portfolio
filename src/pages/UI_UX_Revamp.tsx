@@ -26,7 +26,6 @@ const SITE = {
     linkedin: "https://www.linkedin.com/in/christine-chang/" 
   }
 };
-
 const UI_UX_Revamp: React.FC = () => {
   const navigate = useNavigate();
   // 🌟 控制 Anchor 展開與收合的狀態
