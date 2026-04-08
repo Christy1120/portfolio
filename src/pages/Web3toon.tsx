@@ -34,7 +34,13 @@ const SITE = {
 const Web3toon: React.FC = () => {
   const navigate = useNavigate();
   // 控制 Anchor 展開與收合的狀態
-  const [isAnchorActive, setIsAnchorActive] = useState(true);
+  // 判斷螢幕寬度，若大於等於 768px (桌機/平板) 則預設展開，否則 (手機) 預設收合
+  const [isAnchorActive, setIsAnchorActive] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth >= 768;
+    }
+    return false; 
+  });
   const [mounted, setMounted] = useState(false); 
   
   const containerRef = useRef<HTMLDivElement>(null);
