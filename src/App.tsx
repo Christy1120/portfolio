@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import ProjectDetail from "./pages/ProjectDetail"; 
 import UI_UX_Revamp from "./pages/UI_UX_Revamp";
 import Data_Analysis from "./pages/Data_Analysis";
-import Ai_Aent from "./pages/Ai_Aent";
+import Ai_Agent from "./pages/Ai_Agent";
 import Web3toon from './pages/Web3toon';
 import RosePestAI from './pages/RosePestAI';
 import NSTC_Metaverse from './pages/NSTC_Metaverse'
@@ -37,7 +37,7 @@ export default function App() {
   const hideNavPaths = [
     "/project/UI_UX_Revamp",
     "/project/Data_Analysis",
-    "/project/Ai_Aent",
+    "/project/Ai_Agent",
     "/project/Web3toon",
     "/project/RosePestAI",
     "/project/NSTC_Metaverse"
@@ -70,7 +70,7 @@ export default function App() {
             {/* 客製化專案頁面 */}
             <Route path="/project/Data_Analysis" element={<Data_Analysis />} />
             <Route path="/project/UI_UX_Revamp" element={<UI_UX_Revamp />} />
-            <Route path="/project/Ai_Aent" element={<Ai_Aent />} />
+            <Route path="/project/Ai_Agent" element={<Ai_Agent />} />
             <Route path="/project/Web3toon" element={<Web3toon />} />
             <Route path="/project/RosePestAI" element={<RosePestAI />} />
             <Route path="/project/NSTC_Metaverse" element={<NSTC_Metaverse />} />

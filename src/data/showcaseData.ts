@@ -89,7 +89,7 @@ export const SHOWCASE_DATA: ShowcaseItem[] = [
     company: 'PowerArena 百威雷科技', 
     desc: 'Spearheaded an industrial AI Agent MVP, optimizing LLM precision through program-assisted calculation and domain benchmarking. By ensuring data security and automating reporting, we validated technical feasibility and successfully drove high-level commercial PoC discussions.', // 對應：導入 Dify 打造自動化工作流，驗證 LLM 商業可行性
     scope: [ 'LLM ', 'Workflow Automation', 'PoC'],
-    slug: 'Ai_Aent', // 👈 對應路由：/project/Ai_Aent
+    slug: 'Ai_Agent', // 👈 對應路由：/project/Ai_Aent
     lottieData: AI_Agent ,
     displayArea: 'spotlight'
   }
